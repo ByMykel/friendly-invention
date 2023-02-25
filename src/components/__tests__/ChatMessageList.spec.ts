@@ -18,7 +18,8 @@ describe('ChatMessageList', () => {
             type: 'text',
             text: 'Hi'
           }
-        ]
+        ],
+        isTyping: false
       }
     })
 
