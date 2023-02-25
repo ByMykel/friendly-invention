@@ -1,4 +1,19 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { ref } from 'vue'
+import { useUser } from '@/composables/useUser'
+
+const { user, password, handleLogin } = useUser()
+const error = ref<string | null>(null)
+
+const onSubmit = (e: Event) => {
+  error.value = null
+
+  e.preventDefault()
+  handleLogin().catch((err: Error) => {
+    error.value = err.message
+  })
+}
+</script>
 
 <template>
   <div class="flex h-screen items-center justify-center py-12 px-4">
@@ -12,11 +27,12 @@
           decode="async"
         />
       </div>
-      <form class="space-y-6" action="#" method="POST">
+      <form class="space-y-6" @submit.prevent="onSubmit">
         <div class="space-y-2">
           <div>
             <label for="user" class="text-sm text-gray-500">User</label>
             <input
+              v-model="user"
               class="w-full rounded-md border border-gray-300 px-3 py-2 focus:border-verbio-main focus:outline-none text-sm"
               id="user"
               name="user"
@@ -28,6 +44,7 @@
           <div>
             <label for="password" class="text-sm text-gray-500">Password</label>
             <input
+              v-model="password"
               class="w-full rounded-md border border-gray-300 px-3 py-2 focus:border-verbio-main focus:outline-none text-sm"
               id="password"
               name="password"
@@ -36,6 +53,10 @@
               required
             />
           </div>
+        </div>
+
+        <div v-if="error" class="text-red-500 text-sm">
+          {{ error }}
         </div>
 
         <div>

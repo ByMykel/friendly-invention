@@ -1,3 +1,8 @@
+<script setup lang="ts">
+import { useUser } from '@/composables/useUser'
+const { handleLogout } = useUser()
+</script>
+
 <template>
   <header class="h-14 w-full max-w-3xl">
     <div class="flex items-center justify-between h-full">
@@ -14,6 +19,8 @@
         <button
           type="button"
           class="w-full rounded-md bg-verbio-main py-2 px-4 text-sm font-medium text-white hover:bg-verbio-mainDark focus:bg-verbio-mainDark focus:outline-none"
+          @click="handleLogout"
+          @keyup.enter="handleLogout"
         >
           Log out
         </button>
