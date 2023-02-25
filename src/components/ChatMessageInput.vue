@@ -27,6 +27,7 @@ const sendMessage = (): void => {
         ref="inputRef"
         v-model="message"
         type="text"
+        name="message"
         class="block w-full rounded-md border-gray-400 pl-3 pr-12 border-2 shadow-sm focus:border-verbio-main focus:ring-verbio-main sm:text-sm h-full focus:outline-none"
         placeholder="Type your message here"
         @keyup.enter="sendMessage()"
@@ -36,6 +37,7 @@ const sendMessage = (): void => {
           <button
             v-if="message.length > 0"
             type="button"
+            name="send-message"
             class="bg-gray-200 hover:bg-gray-300 focus:bg-gray-300 p-2 rounded-full"
             @click="sendMessage()"
           >
