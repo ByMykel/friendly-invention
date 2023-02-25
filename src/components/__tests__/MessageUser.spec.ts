@@ -10,8 +10,8 @@ describe('MessageUser', () => {
         message: {
           from: 'user',
           type: 'text',
-          text: 'Hello Vitest!',
-        },
+          text: 'Hello Vitest!'
+        }
       }
     })
 

@@ -11,17 +11,17 @@ describe('ChatMessageList', () => {
           {
             from: 'bot',
             type: 'text',
-            text: 'Hello',
+            text: 'Hello'
           },
           {
             from: 'user',
             type: 'text',
-            text: 'Hi',
-          },
-        ],
+            text: 'Hi'
+          }
+        ]
       }
     })
-    
+
     expect(wrapper.html()).toContain('Hello')
     expect(wrapper.html()).toContain('Hi')
   })

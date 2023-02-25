@@ -8,7 +8,7 @@ import MessageBotLoading from './MessageBotLoading.vue'
 const messagesRef = ref<HTMLElement | null>(null)
 
 defineProps<{
-  messages: Message[],
+  messages: Message[]
   isTyping: boolean
 }>()
 

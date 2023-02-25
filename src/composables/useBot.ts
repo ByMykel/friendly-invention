@@ -28,7 +28,7 @@ export function useBot() {
     await getWelcomeMessage()
       .then(async (res) => {
         isTyping.value = false
-        
+
         for (const message of res) {
           messages.value.push({
             from: 'bot',

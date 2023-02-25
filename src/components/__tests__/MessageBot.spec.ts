@@ -10,8 +10,8 @@ describe('MessageUser', () => {
         message: {
           from: 'bot',
           type: 'text',
-          text: 'Hello Vitest!',
-        },
+          text: 'Hello Vitest!'
+        }
       }
     })
 
@@ -24,13 +24,12 @@ describe('MessageUser', () => {
         message: {
           from: 'bot',
           type: 'image',
-          url: 'https://i.pinimg.com/originals/4e/6f/9a/4e6f9a7e295ce34133d55a3c63394304.jpg',
-        },
+          url: 'https://i.pinimg.com/originals/4e/6f/9a/4e6f9a7e295ce34133d55a3c63394304.jpg'
+        }
       }
     })
 
     expect(wrapper.find('img').attributes('src')).toBeTruthy()
     expect(wrapper.find('img').attributes('alt')).toBeTruthy()
   })
-
 })
