@@ -17,7 +17,7 @@ export const getWelcomeMessage = async () => {
     }
   })
 
-  return response.data
+  return response.data.response
 }
 
 export const sendMessage = async (userMessage: string) => {
@@ -33,5 +33,5 @@ export const sendMessage = async (userMessage: string) => {
     }
   )
 
-  return response.data
+  return response.data.response
 }
