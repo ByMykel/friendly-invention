@@ -14,10 +14,7 @@ const scrollBottom = () => {
 
   if (!(chatElement instanceof HTMLElement)) return
 
-  chatElement.scrollTo({
-    top: chatElement.scrollHeight - 10,
-    behavior: 'smooth'
-  })
+  chatElement.scrollTo({ top: chatElement.scrollHeight - 10, behavior: 'smooth' })
 }
 
 // Handle message input from the user and scroll to bottom

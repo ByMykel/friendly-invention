@@ -4,7 +4,10 @@ import { BASE_URL } from '../utils/constants'
 export const login = async (user: string, password: string) => {
   const response = await axios.post(`${BASE_URL}/login`, {
     user,
-    password
+    password,
+    headers: {
+      'Content-Type': 'application/json'
+    }
   })
 
   return response.data
@@ -13,7 +16,8 @@ export const login = async (user: string, password: string) => {
 export const getWelcomeMessage = async () => {
   const response = await axios.get(`${BASE_URL}/getWelcomeMessage`, {
     headers: {
-      Authorization: `Bearer ${sessionStorage.getItem('token')}`
+      Authorization: `Bearer ${sessionStorage.getItem('token')}`,
+      'Content-Type': 'application/json'
     }
   })
 
@@ -28,7 +32,8 @@ export const sendMessage = async (userMessage: string) => {
     },
     {
       headers: {
-        Authorization: `Bearer ${sessionStorage.getItem('token')}`
+        Authorization: `Bearer ${sessionStorage.getItem('token')}`,
+        'Content-Type': 'application/json'
       }
     }
   )
