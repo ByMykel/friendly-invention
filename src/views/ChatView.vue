@@ -6,7 +6,7 @@ import ChatMessageInput from '@/components/ChatMessageInput.vue'
 import ChatMessageList from '@/components/ChatMessageList.vue'
 
 const { messages, addMessage, getBotWelcomeMessage } = useBot()
-const messageList = ref<HTMLElement | null>(null)
+const messageList = ref<typeof ChatMessageList>()
 
 // Scroll to bottom of the chat when a new message is added
 const scrollBottom = () => {
