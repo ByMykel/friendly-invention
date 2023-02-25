@@ -8,6 +8,7 @@ const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
 
 export function useBot() {
   const messages = ref<Message[]>([])
+  const isTyping = ref(false)
 
   const addMessage = async (message: string, callback: scrollToBottom): Promise<void> => {
     messages.value.push({
@@ -22,8 +23,12 @@ export function useBot() {
   }
 
   const getBotWelcomeMessage = async (callback: scrollToBottom): Promise<void> => {
+    isTyping.value = true
+
     await getWelcomeMessage()
       .then(async (res) => {
+        isTyping.value = false
+        
         for (const message of res) {
           messages.value.push({
             from: 'bot',
@@ -36,6 +41,8 @@ export function useBot() {
         }
       })
       .catch((err) => {
+        isTyping.value = false
+
         // log out user if unauthorized
         if (err.response.status === 401) {
           sessionStorage.removeItem('token')
@@ -45,8 +52,12 @@ export function useBot() {
   }
 
   const getBotResponse = async (message: string, callback: scrollToBottom): Promise<void> => {
+    isTyping.value = true
+
     await sendMessage(message)
       .then(async (res) => {
+        isTyping.value = false
+
         for (const message of res) {
           messages.value.push({
             from: 'bot',
@@ -59,6 +70,8 @@ export function useBot() {
         }
       })
       .catch((err) => {
+        isTyping.value = false
+
         // log out user if unauthorized
         if (err.response.status === 401) {
           sessionStorage.removeItem('token')
@@ -69,6 +82,7 @@ export function useBot() {
 
   return {
     messages,
+    isTyping,
     addMessage,
     getBotWelcomeMessage
   }

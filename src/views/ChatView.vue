@@ -5,7 +5,7 @@ import ChatHeader from '@/components/ChatHeader.vue'
 import ChatMessageInput from '@/components/ChatMessageInput.vue'
 import ChatMessageList from '@/components/ChatMessageList.vue'
 
-const { messages, addMessage, getBotWelcomeMessage } = useBot()
+const { messages, isTyping, addMessage, getBotWelcomeMessage } = useBot()
 const messageList = ref<typeof ChatMessageList>()
 
 // Scroll to bottom of the chat when a new message is added
@@ -34,7 +34,7 @@ onMounted(async () => {
 <template>
   <main class="flex h-screen items-center flex-col justify-center px-4 space-y-2">
     <ChatHeader />
-    <ChatMessageList ref="messageList" :messages="messages" />
+    <ChatMessageList ref="messageList" :messages="messages" :is-typing="isTyping" />
     <ChatMessageInput @submit="handleMessageInput" />
   </main>
 </template>

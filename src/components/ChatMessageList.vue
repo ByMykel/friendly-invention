@@ -3,11 +3,13 @@ import { ref } from 'vue'
 import type { Message } from '../types/index'
 import MessageBot from './MessageBot.vue'
 import MessageUser from './MessageUser.vue'
+import MessageBotLoading from './MessageBotLoading.vue'
 
 const messagesRef = ref<HTMLElement | null>(null)
 
 defineProps<{
-  messages: Message[]
+  messages: Message[],
+  isTyping: boolean
 }>()
 
 // expose the ref to the parent component so we can scroll to bottom
@@ -17,7 +19,7 @@ defineExpose({
 </script>
 
 <template>
-  <div class="w-full max-w-3xl bg-gray-300 overflow-y-hidden h-full rounded-md">
+  <div class="w-full max-w-3xl bg-gray-300 overflow-y-hidden h-full rounded-md relative">
     <ul
       ref="messagesRef"
       class="overflow-y-scroll h-full space-y-2 bg-[url('/patterns/graph-paper.svg')] flex flex-col p-2"
@@ -31,17 +33,18 @@ defineExpose({
         <MessageBot v-else :message="message" />
       </li>
     </ul>
+    <MessageBotLoading v-if="isTyping" />
   </div>
 </template>
 
 <style scoped>
 .message-bot {
-  animation: bot 0.2s ease;
+  animation: bot 0.3s ease;
 }
 
 @keyframes bot {
   from {
-    transform: translateX(200px);
+    transform: translateX(300px);
   }
   to {
     transform: translateX(0);
@@ -49,12 +52,12 @@ defineExpose({
 }
 
 .message-user {
-  animation: user 0.2s ease;
+  animation: user 0.3s ease;
 }
 
 @keyframes user {
   from {
-    transform: translateX(-200px);
+    transform: translateX(-300px);
   }
   to {
     transform: translateX(0);
