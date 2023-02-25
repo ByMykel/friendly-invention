@@ -9,6 +9,14 @@ module.exports = {
     extend: {
       fontFamily: {
         sans: ['Inter var', ...defaultTheme.fontFamily.sans]
+      },
+      colors: {
+        verbio: {
+          main: '#ff1f58',
+          mainDark: '#E52052',
+          secondaryLight: '#0CDDB8',
+          secondaryDark: '#0BC7A6',
+        }
       }
     }
   },
