@@ -1,58 +1,43 @@
 <script setup lang="ts">
+import { onMounted, ref } from 'vue'
+import { useBot } from '@/composables/useBot'
 import ChatHeader from '@/components/ChatHeader.vue'
 import ChatMessageInput from '@/components/ChatMessageInput.vue'
 import ChatMessageList from '@/components/ChatMessageList.vue'
-import { ref } from 'vue'
 
-interface Message {
-  id: number
-  text: string
-}
-
+const { messages, addMessage, getBotWelcomeMessage } = useBot()
 const messageList = ref<HTMLElement | null>(null)
-const messages = ref<Message[]>([])
 
+// Scroll to bottom of the chat when a new message is added
 const scrollBottom = () => {
   const chatElement = messageList?.value?.messagesRef
 
   if (!(chatElement instanceof HTMLElement)) return
 
-  // Check if is close to bottom
-  const isCloseToBottom =
-    chatElement.scrollTop + chatElement.clientHeight >= chatElement.scrollHeight - 100
-
-  // Scroll to bottom if is close to bottom
-  if (isCloseToBottom) {
-    chatElement.scrollTo({
-      top: chatElement.scrollHeight - 10,
-      behavior: 'smooth'
-    })
-  }
+  chatElement.scrollTo({
+    top: chatElement.scrollHeight - 10,
+    behavior: 'smooth'
+  })
 }
 
-const addMessage = async (message: string): Promise<void> => {
-  const random = Math.floor(Math.random() * 4) + 1
+// Handle message input from the user and scroll to bottom
+const handleMessageInput = async (text: string) => {
+  await addMessage(text, scrollBottom)
 
-  const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
-
-  for (let j = 0; j < random; j++) {
-    messages.value.push({
-      id: messages.value.length,
-      text: message
-    })
-    await sleep(100)
-
+  setTimeout(() => {
     scrollBottom()
-  }
-
-  scrollBottom()
+  }, 200)
 }
+
+onMounted(async () => {
+  await getBotWelcomeMessage(scrollBottom)
+})
 </script>
 
 <template>
   <main class="flex h-screen items-center flex-col justify-center px-4 space-y-2">
     <ChatHeader />
     <ChatMessageList ref="messageList" :messages="messages" />
-    <ChatMessageInput @submit="addMessage" />
+    <ChatMessageInput @submit="handleMessageInput" />
   </main>
 </template>
