@@ -1,10 +1,13 @@
 <script setup lang="ts">
 import { ref } from 'vue'
+import type { Message } from '../types/index'
+import MessageBot from './MessageBot.vue'
+import MessageUser from './MessageUser.vue'
 
 const messagesRef = ref<HTMLElement | null>(null)
 
 defineProps<{
-  messages: object[]
+  messages: Message[]
 }>()
 
 // expose the ref to the parent component so we can scroll to bottom
@@ -15,31 +18,46 @@ defineExpose({
 
 <template>
   <div class="w-full max-w-3xl bg-gray-300 overflow-y-hidden h-full rounded-md">
-    <div
+    <ul
       ref="messagesRef"
-      class="overflow-y-scroll h-full space-y-2 bg-[url('/patterns/graph-paper.svg')] flex flex-col items-end p-2"
+      class="overflow-y-scroll h-full space-y-2 bg-[url('/patterns/graph-paper.svg')] flex flex-col p-2"
     >
-      <TransitionGroup name="list">
-        <div
-          v-for="message in messages"
-          :key="message.id"
-          class="bg-verbio-main p-2 w-52 rounded-t-md rounded-bl-md text-white text-sm"
-        >
-          {{ message.text }}
-        </div>
-      </TransitionGroup>
-    </div>
+      <li
+        v-for="(message, index) in messages"
+        :key="`mesage-${index}`"
+        :class="[message.from === 'user' ? 'flex justify-end' : 'flex justify-start']"
+      >
+        <MessageUser v-if="message.from === 'user'" :message="message" />
+        <MessageBot v-else :message="message" />
+      </li>
+    </ul>
   </div>
 </template>
 
 <style scoped>
-.list-enter-active,
-.list-leave-active {
-  transition: all 0.5s ease;
+.message-bot {
+  animation: bot 0.2s ease;
 }
-.list-enter-from,
-.list-leave-to {
-  opacity: 0;
-  transform: translateX(-200px);
+
+@keyframes bot {
+  from {
+    transform: translateX(200px);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+.message-user {
+  animation: user 0.2s ease;
+}
+
+@keyframes user {
+  from {
+    transform: translateX(-200px);
+  }
+  to {
+    transform: translateX(0);
+  }
 }
 </style>
