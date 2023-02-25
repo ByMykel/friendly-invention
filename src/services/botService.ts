@@ -28,7 +28,7 @@ export const sendMessage = async (userMessage: string) => {
   const response = await axios.post(
     `${BASE_URL}/sendMessage`,
     {
-      message: userMessage
+      text: userMessage
     },
     {
       headers: {
