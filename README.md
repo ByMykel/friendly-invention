@@ -1,6 +1,8 @@
 # Introduction
 
-I've used Vue 3 in Vite with TypeScript and Tailwind CSS.
+I've used Vue 3 in Vite with TypeScript and Tailwind CSS. Also, I've used Cypress for E2E testing and Vitest for unit testing.
+
+I've created a `fake-backend` branch to fake the API so you can see it deployed on [gh-pages](https://bymykel.github.io/friendly-invention/), but is preferable to test this from `main` branch.
 
 ## Configuration
 
