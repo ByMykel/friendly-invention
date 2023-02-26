@@ -22,7 +22,7 @@ defineExpose({
   <div class="w-full max-w-3xl bg-gray-300 overflow-y-hidden h-full rounded-md relative">
     <ul
       ref="messagesRef"
-      class="overflow-y-scroll h-full space-y-2 bg-[url('/patterns/graph-paper.svg')] flex flex-col p-2"
+      class="overflow-y-scroll overflow-x-hidden h-full space-y-2 bg-[url('/patterns/graph-paper.svg')] flex flex-col p-2"
     >
       <li
         v-for="(message, index) in messages"
@@ -39,12 +39,12 @@ defineExpose({
 
 <style scoped>
 .message-bot {
-  animation: bot 0.3s ease;
+  animation: bot 0.4s ease;
 }
 
 @keyframes bot {
   from {
-    transform: translateX(300px);
+    transform: translateX(350px);
   }
   to {
     transform: translateX(0);
@@ -52,12 +52,12 @@ defineExpose({
 }
 
 .message-user {
-  animation: user 0.3s ease;
+  animation: user 0.4s ease;
 }
 
 @keyframes user {
   from {
-    transform: translateX(-300px);
+    transform: translateX(-350px);
   }
   to {
     transform: translateX(0);
