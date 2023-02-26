@@ -28,6 +28,7 @@ const sendMessage = (): void => {
         v-model="message"
         type="text"
         name="message"
+        autocomplete="off"
         class="block w-full rounded-md border-gray-400 pl-3 pr-12 border-2 shadow-sm focus:border-verbio-main focus:ring-verbio-main sm:text-sm h-full focus:outline-none"
         placeholder="Type your message here"
         @keyup.enter="sendMessage()"
