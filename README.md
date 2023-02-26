@@ -28,7 +28,7 @@ Unit Tests
 npm run test:unit
 ```
 
-End-to-End Tests with Cypress, you have to change the `baseUrl` in `cypress.config.ts` to the URL of your Vite development server.
+End-to-End Tests with Cypress, you have to change the `baseUrl` in `cypress.config.ts` to the URL of your development server.
 
 ```sh
 npm run test:e2e:dev
