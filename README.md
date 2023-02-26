@@ -36,13 +36,21 @@ npm run test:e2e:dev
 
 ## Lint and Format
 
-Lint with ESLint
+I'm using ESLint and Prettier for linting and formatting and I'm using Husky to run the linter and formatter before each commit.
+
+You need to run the following command to install the `pre-commit` hook:
+
+```sh
+npm run execute-husky
+```
+
+### Lint with ESLint
 
 ```sh
 npm run lint
 ```
 
-Format with Prettier
+### Format with Prettier
 
 ```sh
 npm run format
