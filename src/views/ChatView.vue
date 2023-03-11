@@ -14,20 +14,29 @@ const scrollBottom = () => {
 
   if (!(chatElement instanceof HTMLElement)) return
 
-  chatElement.scrollTo({ top: chatElement.scrollHeight - 10, behavior: 'smooth' })
+  chatElement.scrollTo({ top: chatElement.scrollHeight, behavior: 'smooth' })
 }
 
 // Handle message input from the user and scroll to bottom
 const handleMessageInput = async (text: string) => {
-  await addMessage(text, scrollBottom)
-
-  setTimeout(() => {
-    scrollBottom()
-  }, 200)
+  await addMessage(text)
 }
 
 onMounted(async () => {
-  await getBotWelcomeMessage(scrollBottom)
+  await getBotWelcomeMessage()
+
+  // Observe the message list for new messages and scroll to bottom
+  const callback = function (mutationsList: MutationRecord[]) {
+    for (let mutation of mutationsList) {
+      if (mutation.type === 'childList') {
+        scrollBottom()
+      }
+    }
+  }
+
+  const scrollingElement = messageList?.value?.messagesRef
+  const observer = new MutationObserver(callback)
+  observer.observe(scrollingElement, { childList: true })
 })
 </script>
 

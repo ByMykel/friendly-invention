@@ -1,7 +1,7 @@
 import { ref } from 'vue'
 import { getWelcomeMessage, sendMessage } from '../services/botService'
 import router from '@/router'
-import type { Message, scrollToBottom } from '../types/index'
+import type { Message } from '../types/index'
 
 // Delay messages to add simple animation
 const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
@@ -10,19 +10,17 @@ export function useBot() {
   const messages = ref<Message[]>([])
   const isTyping = ref(false)
 
-  const addMessage = async (message: string, callback: scrollToBottom): Promise<void> => {
+  const addMessage = async (message: string): Promise<void> => {
     messages.value.push({
       from: 'user',
       type: 'text',
       text: message
     })
 
-    callback()
-
-    await getBotResponse(message, callback)
+    await getBotResponse(message)
   }
 
-  const getBotWelcomeMessage = async (callback: scrollToBottom): Promise<void> => {
+  const getBotWelcomeMessage = async (): Promise<void> => {
     isTyping.value = true
 
     await getWelcomeMessage()
@@ -34,8 +32,6 @@ export function useBot() {
             from: 'bot',
             ...message
           } as Message)
-
-          callback()
 
           await sleep(100)
         }
@@ -51,7 +47,7 @@ export function useBot() {
       })
   }
 
-  const getBotResponse = async (message: string, callback: scrollToBottom): Promise<void> => {
+  const getBotResponse = async (message: string): Promise<void> => {
     isTyping.value = true
 
     await sendMessage(message)
@@ -63,8 +59,6 @@ export function useBot() {
             from: 'bot',
             ...message
           } as Message)
-
-          callback()
 
           await sleep(100)
         }

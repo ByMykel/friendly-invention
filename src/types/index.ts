@@ -11,7 +11,3 @@ interface MessageImage {
 }
 
 export type Message = MessageText | MessageImage
-
-export interface scrollToBottom {
-  (): void
-}
